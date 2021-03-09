@@ -14,6 +14,10 @@ export BOOTDIR=/boot
 export LIBDIR=$EXEC_PREFIX/lib
 export INCLUDEDIR=$PREFIX/include
 
+#Inserte acá la ubicación del compilador
+export COMPILADOR="$HOME/cosas/i686_elf_cross"
+export PATH="$COMPILADOR/bin:$PATH"
+
 export CFLAGS='-O2 -g'
 export CPPFLAGS=''
 
