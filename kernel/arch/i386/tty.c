@@ -82,7 +82,7 @@ void terminal_posicionarCaracter(char c) {
 
 	if (uc == '\n') {
 		fila++;
-		posicion_cursor = posicion_cursor - columna + 80 - 1;
+		posicion_cursor = posicion_cursor - columna + VGA_ANCHO - 1;
 		columna = 0;
 		terminal_moverCursor(posicion_cursor);
 	} else {
