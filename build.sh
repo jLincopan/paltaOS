@@ -1,5 +1,7 @@
 #!/bin/sh
 set -e
+
+. ./clean.sh
 . ./headers.sh
 
 for PROJECT in $PROJECTS; do
