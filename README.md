@@ -19,7 +19,7 @@ Software necesario:
 
 -Instalar el software necesario, si está en otra distro que no sea ubuntu hay que buscar los comandos para instalar los paquetes:
 ```bash
-sudo apt install build-essential bison flex libgmp3-dev libmpc-dev libmpfr-dev texinfo qemu-system-i386
+sudo apt install build-essential bison flex libgmp3-dev libmpc-dev libmpfr-dev texinfo qemu-system-i386 nasm
 ```
 -Seguir las instrucciones de https://wiki.osdev.org/GCC_Cross-Compiler para tener un compilador cruzado que produzca binarios
  para la arquitectura que se usa (no menor que i386)
@@ -29,7 +29,8 @@ sudo apt install build-essential bison flex libgmp3-dev libmpc-dev libmpfr-dev t
 git clone https://github.com/jLincopan/paltaOS.git
 ```
 -Cambie la variable COMPILADOR que guarda la ubicación de los binarios del compilador cruzado, esta variable está ubicada
- en el script config.sh. Si se siguió al pie de la letra ese tutorial debería ser algo así como $HOME/opt/cross/bin
+ en el script config.sh. Si se siguió al pie de la letra ese tutorial debería ser algo así como $HOME/opt/cross/bin, si la
+ cambiaste debería ser la ubicación en la que hayas instalado tu compilador
  
 -Para compilar:
 ```bash
