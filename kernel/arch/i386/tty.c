@@ -87,14 +87,10 @@ void terminal_moverCursor(uint16_t posicion) {
 	outb(FB_PUERTO_DATOS,    posicion & 0x00FF);
 }
 
-void terminal_imprimirCaracter(const char* data, size_t size) {
+void terminal_imprimirCadena(const char* data, size_t size) {
 	for (size_t i = 0; i < size; i++)
 		terminal_posicionarCaracter(data[i]);
-	//movemos al cursor la cantidad de carácteres que posea
+	//movemos al cursor la cantidad de carácteres que tenga la cadena
 	posicion_cursor = posicion_cursor + (uint16_t)strlen(data);
 	terminal_moverCursor(posicion_cursor);
-}
-
-void terminal_imprimirCadena(const char* data) {
-	terminal_imprimirCaracter(data, strlen(data));
 }

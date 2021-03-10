@@ -5,7 +5,5 @@
 
 void terminal_inicializar(void);
 void terminal_posicionarCaracter(char c);
-void terminal_imprimirCaracter(const char* data, size_t size);
-void terminal_imprimirCadena(const char* data);
-
+void terminal_imprimirCadena(const char* data, size_t size);
 #endif
