@@ -28,6 +28,8 @@ static size_t columna;
 static uint8_t color_fondo;
 static uint16_t* terminal_buffer;
 
+/*inicializa la terminal, llenándola de espacios vacíos con el
+ color de fondo especificado en color_fondo*/ 
 void terminal_inicializar(void) {
 	fila = 0;
 	columna = 0;
@@ -41,15 +43,21 @@ void terminal_inicializar(void) {
 	}
 }
 
-void terminal_pintarFondo(uint8_t color) {
+/*cambia el color de fondo, no pinta la pantalla, solo cambia el valor
+  del color a usarse como fondo después de llamar esta función*/
+void terminal_cambiarFondo(uint8_t color) {
 	color_fondo = color;
 }
 
+/*posiciona el caracter c en la posicion x,y de la pantalla con el color
+  especificado en la variable "color"*/
 void terminal_caracterXY(unsigned char c, uint8_t color, size_t x, size_t y) {
 	const size_t index = y * VGA_ANCHO + x;
 	terminal_buffer[index] = vga_entry(c, color);
 }
 
+/*solo verifica si hay que resetear la posición x o y del caracter a escribir y 
+  llama a la función que posiciona realmente los carácteres*/
 void terminal_posicionarCaracter(char c) {
 	unsigned char uc = c;
 	terminal_caracterXY(uc, color_fondo, columna, fila);
