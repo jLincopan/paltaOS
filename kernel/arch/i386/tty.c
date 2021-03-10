@@ -7,53 +7,65 @@
 #include <kernel/vga.h>
 #include <kernel/io.h>
 
-static const size_t VGA_WIDTH = 80;
-static const size_t VGA_HEIGHT = 25;
-static uint16_t* const VGA_MEMORY = (uint16_t*) 0xB8000;
+/* el "framebuffer" vga solo puede mostrar una pantalla
+de 80x25 a la vez */
 
-static size_t terminal_row;
-static size_t terminal_column;
-static uint8_t terminal_color;
+static const size_t VGA_ANCHO = 80;
+static const size_t VGA_ALTO = 25;
+
+/**se comunica con él usando "memory mapped I/O"
+ * cada espacio esta compuesto de 16 bits, por lo
+ * que el total de bits que tiene esta memoria es de
+ * 80x25x16 = 32000 bits = 3.25 kB
+ * La memoria empieza en la dirección 0x000B8000
+ * y cada espacio de la pantalla se alcanza sumandole 
+ * 16 a esa dirección de memoria
+**/
+static uint16_t* const MEMORIA_VGA = (uint16_t*) 0x000B8000;
+
+static size_t fila;
+static size_t columna;
+static uint8_t color_fondo;
 static uint16_t* terminal_buffer;
 
-void terminal_initialize(void) {
-	outb(1,15);
-	terminal_row = 0;
-	terminal_column = 0;
-	terminal_color = vga_entry_color(VGA_COLOR_LIGHT_GREY, VGA_COLOR_BLACK);
-	terminal_buffer = VGA_MEMORY;
-	for (size_t y = 0; y < VGA_HEIGHT; y++) {
-		for (size_t x = 0; x < VGA_WIDTH; x++) {
-			const size_t index = y * VGA_WIDTH + x;
-			terminal_buffer[index] = vga_entry(' ', terminal_color);
+void terminal_inicializar(void) {
+	fila = 0;
+	columna = 0;
+	color_fondo = vga_entry_color(VGA_COLOR_LIGHT_GREY, VGA_COLOR_BLACK);
+	terminal_buffer = MEMORIA_VGA;
+	for (size_t y = 0; y < VGA_ALTO; y++) {
+		for (size_t x = 0; x < VGA_ANCHO; x++) {
+			const size_t index = y * VGA_ANCHO + x;
+			terminal_buffer[index] = vga_entry(' ', color_fondo);
 		}
 	}
 }
 
-void terminal_setcolor(uint8_t color) {
-	terminal_color = color;
+void terminal_pintarFondo(uint8_t color) {
+	color_fondo = color;
 }
 
-void terminal_putentryat(unsigned char c, uint8_t color, size_t x, size_t y) {
-	const size_t index = y * VGA_WIDTH + x;
+void terminal_caracterXY(unsigned char c, uint8_t color, size_t x, size_t y) {
+	const size_t index = y * VGA_ANCHO + x;
 	terminal_buffer[index] = vga_entry(c, color);
 }
 
-void terminal_putchar(char c) {
+void terminal_posicionarCaracter(char c) {
 	unsigned char uc = c;
-	terminal_putentryat(uc, terminal_color, terminal_column, terminal_row);
-	if (++terminal_column == VGA_WIDTH) {
-		terminal_column = 0;
-		if (++terminal_row == VGA_HEIGHT)
-			terminal_row = 0;
+	terminal_caracterXY(uc, color_fondo, columna, fila);
+	if (++columna == VGA_ANCHO) {
+		columna = 0;
+		if (++fila == VGA_ALTO)
+			fila = 0;
 	}
 }
 
-void terminal_write(const char* data, size_t size) {
+void terminal_imprimirCaracter(const char* data, size_t size) {
 	for (size_t i = 0; i < size; i++)
-		terminal_putchar(data[i]);
+		terminal_posicionarCaracter(data[i]);
 }
 
-void terminal_writestring(const char* data) {
-	terminal_write(data, strlen(data));
+void terminal_imprimirCadena(const char* data) {
+	terminal_imprimirCaracter(data, strlen(data));
+
 }
