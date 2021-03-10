@@ -4,8 +4,8 @@
 #include <string.h>
 
 #include <kernel/tty.h>
-
 #include <kernel/vga.h>
+#include <kernel/io.h>
 
 static const size_t VGA_WIDTH = 80;
 static const size_t VGA_HEIGHT = 25;
@@ -17,6 +17,7 @@ static uint8_t terminal_color;
 static uint16_t* terminal_buffer;
 
 void terminal_initialize(void) {
+	outb(1,15);
 	terminal_row = 0;
 	terminal_column = 0;
 	terminal_color = vga_entry_color(VGA_COLOR_LIGHT_GREY, VGA_COLOR_BLACK);
