@@ -7,6 +7,13 @@
 #include <kernel/vga.h>
 #include <kernel/io.h>
 
+/* Los puertos I/O VGA */
+#define FB_PUERTO_COMANDOS 0x3D4
+#define FB_PUERTO_DATOS    0x3D5
+/* Los comandos I/O VGA  */
+#define FB_HIGH_BYTE_COMMAND 14
+#define FB_LOW_BYTE_COMMAND  15
+
 /* el "framebuffer" vga solo puede mostrar una pantalla
 de 80x25 a la vez */
 
@@ -26,6 +33,7 @@ static uint16_t* const MEMORIA_VGA = (uint16_t*) 0x000B8000;
 static size_t fila;
 static size_t columna;
 static uint8_t color_fondo;
+static uint16_t posicion_cursor = 0;
 static uint16_t* terminal_buffer;
 
 /*inicializa la terminal, llenándola de espacios vacíos con el
@@ -68,12 +76,25 @@ void terminal_posicionarCaracter(char c) {
 	}
 }
 
+/*mueve el cursor a la posición x (recordar que esto es un array
+  donde 80 elementos seguidos representan una fila)
+  xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
+  fila 1   fila 2   fila 3   fila 4   etc*/
+void terminal_moverCursor(uint16_t posicion) {
+	outb(FB_PUERTO_COMANDOS, FB_HIGH_BYTE_COMMAND);
+	outb(FB_PUERTO_DATOS,    ((posicion >> 8) & 0x00FF));
+	outb(FB_PUERTO_COMANDOS, FB_LOW_BYTE_COMMAND);
+	outb(FB_PUERTO_DATOS,    posicion & 0x00FF);
+}
+
 void terminal_imprimirCaracter(const char* data, size_t size) {
 	for (size_t i = 0; i < size; i++)
 		terminal_posicionarCaracter(data[i]);
+	//movemos al cursor la cantidad de carácteres que posea
+	posicion_cursor = posicion_cursor + (uint16_t)strlen(data);
+	terminal_moverCursor(posicion_cursor);
 }
 
 void terminal_imprimirCadena(const char* data) {
 	terminal_imprimirCaracter(data, strlen(data));
-
 }
