@@ -1,6 +1,7 @@
 # paltaOS
-Un sistema operativo que estoy haciendo como hobby para aprender programación a bajo nivel, para plataformas intel i386 y compatibles de momento, basado en: -https://wiki.osdev.org/Meaty_Skeleton
--http://littleosbook.github.io
+Un sistema operativo que estoy haciendo como hobby para aprender programación a bajo nivel, para plataformas intel i386 y compatibles de momento, basado en: 
+          -https://wiki.osdev.org/Meaty_Skeleton
+          -http://littleosbook.github.io
 
 # Prerequisitos para compilarlo
 Software necesario:
