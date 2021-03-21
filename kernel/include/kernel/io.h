@@ -7,7 +7,7 @@
     *
     * @param data The data to send to the I/O 
     * */
-
+              //2 bytes            //1 byte
     void outb(unsigned short port, unsigned char data);
 
     /** inb:
