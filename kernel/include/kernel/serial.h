@@ -49,6 +49,7 @@
     void serial_configurar_velocidad(unsigned short divisor, unsigned short com);
     void serial_configurar_linea(unsigned short com);
     void serial_configurar_puerto(unsigned short com, unsigned short divisor);
-    void serial_transmitir(unsigned short com, char dato);
+    void serial_transmitir_caracter(unsigned short com, char dato);
+    void serial_transmitir_cadena(unsigned short com, const char* cadena);
     char serial_leer(unsigned short com);
 #endif

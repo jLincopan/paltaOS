@@ -2,9 +2,10 @@
 //                                   -https://en.wikibooks.org/wiki/Serial_Programming/8250_UART_Programming
 //Algo más técnico: http://www.roboard.com/Files/Reg/Serial_Port_Registers.pdf
 
+#include <stdio.h>
+#include <string.h>
 #include <kernel/io.h>
 #include <kernel/serial.h>
-#include <stdio.h>
 
 void serial_configurar_velocidad(unsigned short divisor, unsigned short com) {
     /*le decimos al hardware del puerto serial que
@@ -14,7 +15,7 @@ void serial_configurar_velocidad(unsigned short divisor, unsigned short com) {
     outb(SERIAL_PUERTO_CONTROL_LINEA(com), SERIAL_ACTIVAR_DLAB); //activamos DLAB
     //procedemos a mandar el divisor en dos partes:
     outb(SERIAL_PUERTO_DATOS(com), divisor & 0x00FF); //byte menos significativo
-    outb(SERIAL_PUERTO_ACTIVAR_INTERRUPT(com), divisor & 0xFF00); //byte más significativo
+    outb(SERIAL_PUERTO_ACTIVAR_INTERRUPT(com), divisor & 0xFF); //byte más significativo
 
 }
 
@@ -70,13 +71,22 @@ unsigned short serial_puedo_transmitir(unsigned short com){
     return inb(SERIAL_PUERTO_ESTADO_DE_LINEA(com)) & 0x20;
 }
 
-int serial_puedo_leer(com) {
+int serial_puedo_leer(unsigned short com) {
    return inb(SERIAL_PUERTO_ESTADO_DE_LINEA(com)) & 1;
 }
 
-void serial_transmitir(unsigned short com, char dato) {
+void serial_transmitir_caracter(unsigned short com, char dato) {
    while (serial_puedo_transmitir(com) == 0);
    outb(com, dato);
+}
+
+void serial_transmitir_cadena(unsigned short com, const char* cadena) {
+    for(size_t i = 0; i < strlen(cadena); i++) {
+        serial_transmitir_caracter(com, cadena[i]);
+        
+    }
+    serial_transmitir_caracter(com, '\r');
+    serial_transmitir_caracter(com, '\n');
 }
 
 char serial_leer(unsigned short com) {
