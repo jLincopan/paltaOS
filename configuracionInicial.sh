@@ -24,7 +24,7 @@ elif ["$ID" = "ubuntu"] || ["$ID" = "debian"]; then
 	sudo apt install build-essential bison flex libgmp3-dev libmpc-dev libmpfr-dev texinfo qemu-system-x86 xorriso nasm
 elif ["$ID" = "arch"] || ["$ID" = "manjaro"]; then
 	sudo pacman -Syu base-devel gmp libmpc mpfr qemu-system-x86_64 xorriso nasm
-done
+fi
 
 mkdir -p $PREFIX
 mkdir -p $SOURCE
