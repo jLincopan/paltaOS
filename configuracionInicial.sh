@@ -30,15 +30,15 @@ mkdir -p $PREFIX
 mkdir -p $SOURCE
 
 echo -e "\nDescargando archivos fuente de binutils $BIN_VER\n"
-wget -nc -c -t 0 --timeout=60 --waitretry=60 https://ftp.gnu.org/gnu/binutils/binutils-$BIN_VER.tar.xz -P $SOURCE/
+wget -p -c -t 0 --timeout=60 --waitretry=60 https://ftp.gnu.org/gnu/binutils/binutils-$BIN_VER.tar.xz -P $SOURCE/
 while [ $? -ne 0 ]; do
-	wget -nc -c -t 0 --timeout=60 --waitretry=60 https://ftp.gnu.org/gnu/binutils/binutils-$BIN_VER.tar.xz -P $SOURCE/
+	wget -p -c -t 0 --timeout=60 --waitretry=60 https://ftp.gnu.org/gnu/binutils/binutils-$BIN_VER.tar.xz -P $SOURCE/
 done
 
 echo -e "\nDescargando archivos fuente de gcc $GCC_VER\n"
-wget -nc -c -t 0 --timeout=60 --waitretry=60 https://ftp.gnu.org/gnu/gcc/gcc-$GCC_VER/gcc-$GCC_VER.tar.xz -P $SOURCE/
+wget -p -c -t 0 --timeout=60 --waitretry=60 https://ftp.gnu.org/gnu/gcc/gcc-$GCC_VER/gcc-$GCC_VER.tar.xz -P $SOURCE/
 while [$? -ne 0 ]; do
-	wget -nc -c -t 0 --timeout=60 --waitretry=60 https://ftp.gnu.org/gnu/gcc/gcc-$GCC_VER/gcc-$GCC_VER.tar.xz -P $SOURCE/
+	wget -p -c -t 0 --timeout=60 --waitretry=60 https://ftp.gnu.org/gnu/gcc/gcc-$GCC_VER/gcc-$GCC_VER.tar.xz -P $SOURCE/
 done
 
 echo -e "\nDescomprimiendo archivos fuente\n"
