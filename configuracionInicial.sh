@@ -18,11 +18,11 @@ echo -e "\nInstalando dependencias para compilar paltaOS...\n"
 
 source /etc/os-release
 
-if ["$ID" = "fedora"]; then
+if ["$ID" == "fedora"]; then
 	sudo dnf install gcc make bison flex gmp-devel libmpc-devel mpfr-devel texinfo nasm qemu-system-x86 xorriso
-elif ["$ID" = "ubuntu"] || ["$ID" = "debian"]; then
+elif ["$ID" == "ubuntu"] || ["$ID" = "debian"]; then
 	sudo apt install build-essential bison flex libgmp3-dev libmpc-dev libmpfr-dev texinfo qemu-system-x86 xorriso nasm
-elif ["$ID" = "arch"] || ["$ID" = "manjaro"]; then
+elif ["$ID" == "arch"] || ["$ID" = "manjaro"]; then
 	sudo pacman -Syu base-devel gmp libmpc mpfr qemu-system-x86_64 xorriso nasm
 fi
 
