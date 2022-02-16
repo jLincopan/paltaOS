@@ -58,7 +58,7 @@ all: paltaos.kernel
 
 paltaos.kernel: $(OBJS) $(ARCHDIR)/linker.ld
 	$(CC) -T $(ARCHDIR)/linker.ld -o $@ $(CFLAGS) $(LINK_LIST)
-	grub-file --is-x86-multiboot paltaos.kernel
+	grub-file --is-x86-multiboot paltaos.kernel || grub2-file --is-x86-multiboot paltaos.kernel
 
 $(ARCHDIR)/crtbegin.o $(ARCHDIR)/crtend.o:
 	OBJ=`$(CC) $(CFLAGS) $(LDFLAGS) -print-file-name=$(@F)` && cp "$$OBJ" $@

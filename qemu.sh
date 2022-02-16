@@ -1,4 +1,6 @@
 #!/bin/sh
+
+#emula el sistema operativo usando la imagen iso generada
 set -e
 . ./iso.sh
 

@@ -1,4 +1,6 @@
 #!/bin/sh
+
+#genera una imagen iso del sistema operativo
 set -e
 . ./build.sh
 
@@ -12,4 +14,4 @@ menuentry "paltaos" {
 	multiboot /boot/paltaos.kernel
 }
 EOF
-grub-mkrescue -o paltaos.iso isodir
+grub-mkrescue -o paltaos.iso isodir || grub2-mkrescue -o paltaos.iso isodir

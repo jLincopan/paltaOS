@@ -16,7 +16,7 @@ export LIBDIR=$EXEC_PREFIX/lib
 export INCLUDEDIR=$PREFIX/include
 
 #Inserte acá la ubicación del compilador para añadirlo a la variable PATH
-export COMPILADOR="$HOME/cosas/i686_elf_cross/bin"
+export COMPILADOR="$HOME/opt/cross/bin"
 export PATH="$COMPILADOR:$PATH"
 
 export CFLAGS='-O2 -g'
