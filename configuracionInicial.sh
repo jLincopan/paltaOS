@@ -19,10 +19,13 @@ echo -e "\nInstalando dependencias para compilar paltaOS...\n"
 . /etc/os-release
 
 if [ "$ID" = "fedora" ]; then
+	echo -e "Sistema detectado: $ID\n"
 	sudo dnf install gcc make bison flex gmp-devel libmpc-devel mpfr-devel texinfo nasm qemu-system-x86 xorriso
 elif [ "$ID" = "ubuntu" ] || ["$ID" = "debian"]; then
+	echo -e "Sistema detectado: $ID\n"
 	sudo apt install build-essential bison flex libgmp3-dev libmpc-dev libmpfr-dev texinfo qemu-system-x86 xorriso nasm
 elif [ "$ID" = "arch" ] || ["$ID" = "manjaro"]; then
+	echo -e "Sistema detectado: $ID\n"
 	sudo pacman -Syu base-devel gmp libmpc mpfr qemu-system-x86_64 xorriso nasm
 fi
 
