@@ -13,7 +13,7 @@ Software necesario:
           - El software de emulación qemu
           - xorriso
           - El ensamblador nasm
-          - grub2
+          - grub
           - GNU mtools
           
 # Instrucciones para compilarlo y emularlo
@@ -24,7 +24,8 @@ Software necesario:
 git clone https://github.com/jLincopan/paltaOS.git
 ```
 
--Ejecutar el script configuracionInicial.sh. Este script instalará los programas requeridos para trabajar con paltaOS. Además descargará el código fuente de gcc y binutils, lo compilará y lo dejará listo para funcionar como compilador cruzado.
+-Ejecutar el script configuracionInicial.sh. Este script instalará los programas requeridos para trabajar con paltaOS. Además descargará el código fuente de gcc y binutils, lo compilará y lo dejará listo para funcionar como compilador cruzado. Si tiene otra distro linux que no sea ubuntu, debian, fedora, arch o manjaro deberá instalar los programas manualmente, una vez echo eso el script podrá compilar gcc como compilador cruzado para paltaOS
+
 ```bash
 ./configuracionInicial.sh
 ```
