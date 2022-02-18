@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 #Script para automatizar la instalación de dependencias y el
 #compilador cruzado necesarios para compilar y emular paltaOS
