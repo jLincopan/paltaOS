@@ -3,9 +3,9 @@
 #include <stdint.h>
 #include <string.h>
 
-#include <kernel/tty.h>
-#include <kernel/vga.h>
-#include <kernel/io.h>
+#include <kernel/vga/tty.h>
+#include <kernel/vga/vga.h>
+#include <kernel/io/io.h>
 
 /* Los puertos I/O VGA */
 #define FB_PUERTO_COMANDOS 0x3D4

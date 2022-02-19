@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include <kernel/tty.h>
-#include <kernel/serial.h>
+#include <kernel/vga/tty.h>
+#include <kernel/io/serial.h>
 
 void kernel_main(void) {
 	terminal_inicializar();

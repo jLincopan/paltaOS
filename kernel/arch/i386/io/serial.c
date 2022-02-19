@@ -4,8 +4,8 @@
 
 #include <stdio.h>
 #include <string.h>
-#include <kernel/io.h>
-#include <kernel/serial.h>
+#include <kernel/io/io.h>
+#include <kernel/io/serial.h>
 
 void serial_configurar_velocidad(unsigned short divisor, unsigned short com) {
     /*le decimos al hardware del puerto serial que
