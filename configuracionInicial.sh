@@ -59,7 +59,7 @@ echo -e "\nCompilando gcc $GCC_VER\n"
 cd $SOURCE/
 mkdir build-gcc
 cd build-gcc
-../gcc-$GCC_VER/configure --target=$TARGET --prefix="$PREFIX" --disable-nls --enable-languages=c,c++ --without-headers
+../gcc-$GCC_VER/configure --target=$TARGET --prefix="$PREFIX" --disable-nls --enable-languages=c --without-headers
 echo -e "\ninstalando gcc $GCC_VER en el directorio designado para los binarios\n"
 make all-gcc
 make all-target-libgcc
