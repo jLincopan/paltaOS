@@ -32,22 +32,22 @@ $(KERNEL_ARCH_OBJS) \
 kernel/kernel.o \
 
 OBJS=\
-$(ARCHDIR)/crti.o \
+$(ARCHDIR)/boot/crti.o \
 $(ARCHDIR)/crtbegin.o \
 $(KERNEL_OBJS) \
 $(ARCHDIR)/crtend.o \
-$(ARCHDIR)/crtn.o \
+$(ARCHDIR)/boot/crtn.o \
 $(ARCHDIR)/io/io.o \
 $(ARCHDIR)/io/serial.o \
 
 LINK_LIST=\
 $(LDFLAGS) \
-$(ARCHDIR)/crti.o \
+$(ARCHDIR)/boot/crti.o \
 $(ARCHDIR)/crtbegin.o \
 $(KERNEL_OBJS) \
 $(LIBS) \
 $(ARCHDIR)/crtend.o \
-$(ARCHDIR)/crtn.o \
+$(ARCHDIR)/boot/crtn.o \
 $(ARCHDIR)/io/io.o \
 $(ARCHDIR)/io/serial.o \
 
@@ -56,8 +56,8 @@ $(ARCHDIR)/io/serial.o \
 
 all: paltaos.kernel
 
-paltaos.kernel: $(OBJS) $(ARCHDIR)/linker.ld
-	$(CC) -T $(ARCHDIR)/linker.ld -o $@ $(CFLAGS) $(LINK_LIST)
+paltaos.kernel: $(OBJS) $(ARCHDIR)/boot/linker.ld
+	$(CC) -T $(ARCHDIR)/boot/linker.ld -o $@ $(CFLAGS) $(LINK_LIST)
 	grub-file --is-x86-multiboot paltaos.kernel || grub2-file --is-x86-multiboot paltaos.kernel
 
 $(ARCHDIR)/crtbegin.o $(ARCHDIR)/crtend.o:
