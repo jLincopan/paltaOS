@@ -20,7 +20,7 @@ echo -e "\nInstalando dependencias para compilar paltaOS...\n"
 
 echo -e "Sistema detectado: $ID\n"
 if [ "$ID" = "fedora" ]; then
-	sudo dnf install grub2-common gcc make bison flex gmp-devel libmpc-devel mpfr-devel texinfo nasm qemu-system-x86 xorriso
+	sudo dnf install grub2-common gcc g++ make bison flex gmp-devel libmpc-devel mpfr-devel texinfo nasm qemu-system-x86 xorriso
 elif [ "$ID" = "ubuntu" ] || ["$ID" = "debian"]; then
 	sudo apt install grub-common build-essential bison flex libgmp3-dev libmpc-dev libmpfr-dev texinfo qemu-system-x86 xorriso nasm
 elif [ "$ID" = "arch" ] || ["$ID" = "manjaro"]; then
