@@ -1,4 +1,4 @@
-; Sector de arranque simple
+; Simple bootloader que usa INT 13 AH2 para leer desde el disco
 
 
 	org 0x7c00 		; especificamos la dirección en memoria desde la que
@@ -6,26 +6,29 @@
 		   			; (que es la dirección en que la bios carga el 
 		   			; bootloader) para poder usar offsets relativos en este
 
-	;Seteando modo de video
-	mov ah, 0x00
-	mov al, 0x03
-	int 0x10
+	;; ES:BX offset para cargar los sectores en memoria
+	mov bx, 0x1000  ; 
+	mov es, bx	; Seteamos registro de segmentos es (solo se puede hacer con otro
+				; registro o instrucciones especiales)
+	mov bx, 0x0 ; offset 0
 
-	mov ah, 0x0e 	; int 10/ ah 0x0e BIOS telepype output
-	mov bx, cadena 	; cargando la dirección de memoria en que se
-			     	; encuentra "cadena" al registro bx
-	call imprimir_cadena
-	mov bx, cadena2
-	call imprimir_cadena
-	jmp bucle
-	
+	;; Preparación para leer el disco
+
+	mov ch, 0x0		; cylinder 0
+	mov cl, 0x02	; Sector desde donde se empieza a leer
+	mov dh, 0x0		; head 0
+	mov dl, 0x0		; drive 0
+
+	call leer_disco
+
+	mov ax, 0x1000
+    mov ds, ax
+
+
+	jmp 0x1000:0x0
+
 	%include 'imprimir_cadena.asm'
-
-cadena: db "probandoooo", 0xA, 0xD, 0 ; la cadena a imprimir, termina en 
-				      				  ; cero para poDER distinguir cuando termina
-cadena2: db "hola k ase", 0
-
-bucle:
-	jmp $ 			;bucle que salta siempre acá!
-	times 510-($-$$) db 0 ;relleno para completar 512 bits 
+	%include 'leer_disco.asm'
+	times 510-($-$$) db 0 ;relleno para completar 512 bits del sector
 	dw 0xaa55 		;número mágico (boot magic number)
+
