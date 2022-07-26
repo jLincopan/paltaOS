@@ -10,3 +10,4 @@ kernel.bin:
 
 clean:
 	rm bin/*
+	rm OS.bin
